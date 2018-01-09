@@ -12,4 +12,5 @@ import com.bing.mymvpdemo.ui.base.MvpPresenter;
 
 public interface OneMvpPresenter<V extends OneMvpView> extends MvpPresenter<V> {
     void onViewPrepared();
+    void onLoadMoreData();
 }

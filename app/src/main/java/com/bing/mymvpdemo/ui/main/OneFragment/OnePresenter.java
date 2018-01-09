@@ -36,4 +36,22 @@ public class OnePresenter<V extends OneMvpView> extends BasePresenter<V>
             }
         });
     }
+
+    @Override
+    public void onLoadMoreData() {
+        getMvpView().showLoading();
+        getDataManager().getWhetherApiCall(new NetworkCallback<List<Whether>>() {
+            @Override
+            public void onSuccess(List<Whether> success) {
+                getMvpView().hideLoading();
+                getMvpView().updateData(success);
+            }
+
+            @Override
+            public void onFail(String err) {
+                getMvpView().hideLoading();
+                handleApiError(err);
+            }
+        });
+    }
 }
