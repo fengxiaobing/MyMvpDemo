@@ -25,4 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:progressDrawable="@color/black_effective" />
+    <!--<ProgressBar-->
+        <!--android:id="@+id/pb_loading"-->
+        <!--style="@style/customProgressBar"/>-->
 </RelativeLayout>

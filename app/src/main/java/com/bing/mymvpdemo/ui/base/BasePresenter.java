@@ -60,6 +60,10 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     @Override
     public void handleApiError(String error) {
+        if(error.contains("test")){
+            getDataManager().setCurrentUserLoggedIn(0);
+            getMvpView().openActivityOnTokenExpire();
+        }
 
     }
 

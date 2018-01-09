@@ -21,6 +21,6 @@ import com.bing.mymvpdemo.ui.base.MvpView;
 
 
 public interface LoginMvpView extends MvpView {
-
+    void openMainActivity();
 
 }

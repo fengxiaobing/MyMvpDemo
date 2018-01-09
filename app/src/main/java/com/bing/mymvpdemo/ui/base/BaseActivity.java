@@ -32,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bing.mymvpdemo.R;
+import com.bing.mymvpdemo.ui.login.LoginActivity;
 import com.bing.mymvpdemo.ui.main.MainActivity;
 import com.bing.mymvpdemo.utils.CommonUtils;
 import com.bing.mymvpdemo.utils.NetworkUtils;
@@ -141,7 +142,8 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public void openActivityOnTokenExpire() {
-        startActivity(MainActivity.getStartIntent(this));
+
+        startActivity(LoginActivity.getStartIntent(this));
         finish();
     }
 

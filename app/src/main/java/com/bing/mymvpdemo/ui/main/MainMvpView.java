@@ -27,7 +27,4 @@ import java.util.List;
 public interface MainMvpView extends MvpView {
 
     void openLoginActivity();
-
-
-    void unlockDrawer();
 }

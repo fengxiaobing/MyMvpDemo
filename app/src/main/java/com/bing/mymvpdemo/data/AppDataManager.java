@@ -3,7 +3,11 @@ package com.bing.mymvpdemo.data;
 
 import com.bing.mymvpdemo.data.db.DbHelper;
 import com.bing.mymvpdemo.data.network.ApiHelper;
+import com.bing.mymvpdemo.data.network.callback.NetworkCallback;
+import com.bing.mymvpdemo.data.network.model.Whether;
 import com.bing.mymvpdemo.data.prefs.PreferencesHelper;
+
+import java.util.List;
 
 public class AppDataManager implements DataManager {
     private static final String TAG = "AppDataManager";
@@ -45,5 +49,11 @@ public class AppDataManager implements DataManager {
     @Override
     public void setAccessToken(String accessToken) {
 
+    }
+
+
+    @Override
+    public void getWhetherApiCall(NetworkCallback<List<Whether>> networkCallback) {
+            mApiHelper.getWhetherApiCall(networkCallback);
     }
 }

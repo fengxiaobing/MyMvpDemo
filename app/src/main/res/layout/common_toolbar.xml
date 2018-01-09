@@ -14,16 +14,15 @@
         android:paddingBottom="13dp"
         android:paddingTop="13dp">
 
-        <ImageButton
-            android:id="@+id/left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/top_back"
-            android:layout_alignParentLeft="true"
-            android:paddingLeft="10dp"
-            />
-
+        <!--<ImageButton-->
+            <!--android:id="@+id/left"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@null"-->
+            <!--android:src="@drawable/top_back"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--/>-->
         <TextView
             android:id="@+id/title"
            android:textSize="18dp"
@@ -34,21 +33,5 @@
             android:layout_centerInParent="true"
             android:text="demo"
              />
-
-        <LinearLayout
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        <ImageButton
-            android:id="@+id/right2"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ic_launcher_background"
-            android:paddingRight="10dp"
-            />
-        </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

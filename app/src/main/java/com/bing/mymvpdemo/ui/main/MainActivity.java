@@ -4,25 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bing.mymvpdemo.R;
-import com.bing.mymvpdemo.adapter.MyFrageStatePagerAdapter;
-import com.bing.mymvpdemo.ui.FourFragment.FourFragment;
-import com.bing.mymvpdemo.ui.OneFragment.OneFragment;
-import com.bing.mymvpdemo.ui.ThreeFragment.ThreeFragment;
-import com.bing.mymvpdemo.ui.TwoFragment.TwoFragment;
 import com.bing.mymvpdemo.ui.base.BaseActivity;
+import com.bing.mymvpdemo.ui.login.LoginActivity;
 import com.bing.mymvpdemo.ui.widget.MyViewPager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,18 +35,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     RadioButton btnOwn;
     @BindView(R.id.radiogroup)
     RadioGroup radiogroup;
-    /**
-     * 页面集合
-     */
-    List<Fragment> fragmentList;
+    @BindView(R.id.title)
+    TextView title;
 
-    /**
-     * 四个Fragment（页面）
-     */
-    OneFragment oneFragment;
-    TwoFragment twoFragment;
-    ThreeFragment threeFragment;
-    FourFragment fourFragment;
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
@@ -66,28 +48,17 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        onError("hahaha");
         mainMvpViewMainPresenter = new MainPresenter<>();
         mainMvpViewMainPresenter.onAttach(this);
-        mainMvpViewMainPresenter.onDrawerOptionAboutClick();
 
         init();
-
     }
 
     private void init() {
-        fragmentList=new ArrayList<Fragment>();
-        oneFragment=new OneFragment();
-        twoFragment=new TwoFragment();
-        threeFragment=new ThreeFragment();
-        fourFragment=new FourFragment();
-        fragmentList.add(oneFragment);
-        fragmentList.add(twoFragment);
-        fragmentList.add(threeFragment);
-        fragmentList.add(fourFragment);
-        FragmentManager fm=getSupportFragmentManager();
-        MyFrageStatePagerAdapter mfpa=new MyFrageStatePagerAdapter(fm, fragmentList); //new myFragmentPagerAdater记得带上两个参数
-        viewpager.setAdapter(mfpa);
+        FragmentManager fm = getSupportFragmentManager();
+        MainPagerAdapter mPagerAdapter = new MainPagerAdapter(fm);
+        mPagerAdapter.setCount(4);
+        viewpager.setAdapter(mPagerAdapter);
         radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -95,19 +66,19 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                 switch (checkedId) {
                     case R.id.btn_notice:
                         viewpager.setCurrentItem(0);
-//                        title.setText("任务");
+                        title.setText("任务");
                         break;
                     case R.id.btn_work:
                         viewpager.setCurrentItem(1);
-//                        title.setText("工作");
+                        title.setText("工作");
                         break;
                     case R.id.btn_contacts:
                         viewpager.setCurrentItem(2);
-//                        title.setText("通讯录");
+                        title.setText("通讯录");
                         break;
                     case R.id.btn_own:
                         viewpager.setCurrentItem(3);
-//                        title.setText("个人中心");
+                        title.setText("个人中心");
                         break;
 
                 }
@@ -119,23 +90,23 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     private void setRadioBtnChecked(int id) {
-        RadioButton btn1 =  findViewById(R.id.btn_notice);
+        RadioButton btn1 = findViewById(R.id.btn_notice);
         btn1.setTextColor(Color.parseColor("#92a1b0"));
         btn1.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.notice), null, null);
 
-        RadioButton btn2 =  findViewById(R.id.btn_work);
+        RadioButton btn2 = findViewById(R.id.btn_work);
         btn2.setTextColor(Color.parseColor("#92a1b0"));
         btn2.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.work), null, null);
 
-        RadioButton btn3 =  findViewById(R.id.btn_own);
+        RadioButton btn3 = findViewById(R.id.btn_own);
         btn3.setTextColor(Color.parseColor("#92a1b0"));
         btn3.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.own), null, null);
 
-        RadioButton btn4 =  findViewById(R.id.btn_contacts);
+        RadioButton btn4 = findViewById(R.id.btn_contacts);
         btn4.setTextColor(Color.parseColor("#92a1b0"));
         btn4.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.contacts), null, null);
 
-        RadioButton btn =  findViewById(id);
+        RadioButton btn = findViewById(id);
         switch (id) {
             case R.id.btn_notice:
                 btn.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.notice_press), null, null);
@@ -153,14 +124,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         }
         btn.setTextColor(Color.parseColor("#6b8ccc"));
     }
+
     @Override
     public void openLoginActivity() {
-
-    }
-
-    @Override
-    public void unlockDrawer() {
-
+        startActivity(LoginActivity.getStartIntent(this));
+        finish();
     }
 
     @Override

@@ -18,7 +18,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         super();
     }
     @Override
-    public void submit() {
+    public void onLoginClick() {
         getDataManager().setCurrentUserLoggedIn(1);
+        getMvpView().openMainActivity();
     }
 }

@@ -3,4 +3,14 @@
 
     <!--App Message-->
     <string name="some_error">Some Error Occurred!</string>
+    <!--test dialog-->
+    <string name="rate_us">评分</string>
+    <string name="rating_message">写出您的建议</string>
+    <string name="rating_play_store_redirect_message_line_1">多谢五星好评</string>
+    <string name="rating_play_store_text">前往</string>
+    <string name="rating_not_provided_error">Please provide us stars.</string>
+    <string name="rating_thanks">Thank you!</string>
+    <!--button-->
+    <string name="later">取消</string>
+    <string name="submit">提交</string>
 </resources>

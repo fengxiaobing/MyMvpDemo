@@ -16,11 +16,16 @@
 package com.bing.mymvpdemo.data.network;
 
 
+import com.bing.mymvpdemo.data.network.callback.NetworkCallback;
+import com.bing.mymvpdemo.data.network.model.Whether;
+
+import java.util.List;
+
 /**
  * Created by janisharali on 27/01/17.
  */
 
 public interface ApiHelper {
-
+    void getWhetherApiCall(NetworkCallback<List<Whether>> networkCallback);
 
 }
