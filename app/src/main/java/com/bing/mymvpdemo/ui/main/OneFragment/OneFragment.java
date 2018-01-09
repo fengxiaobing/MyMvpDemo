@@ -75,7 +75,7 @@ public class OneFragment extends BaseFragment implements OneMvpView {
 
         mRecyclerView
                 .getDefaultRefreshHeaderView()
-                .setRefreshTimeVisible(true);
+                .setRefreshTimeVisible(false);
 //        View header = LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview_header, (ViewGroup)view.findViewById(android.R.id.content),false);
 //        mRecyclerView.addHeaderView(header);
 
