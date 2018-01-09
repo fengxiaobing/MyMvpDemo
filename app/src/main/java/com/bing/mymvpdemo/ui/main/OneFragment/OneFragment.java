@@ -73,6 +73,7 @@ public class OneFragment extends BaseFragment implements OneMvpView {
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
         mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
 
+        //注释此段代码将会下拉刷新时没有几分钟前提示
 //        mRecyclerView
 //                .getDefaultRefreshHeaderView()
 //                .setRefreshTimeVisible(true);
