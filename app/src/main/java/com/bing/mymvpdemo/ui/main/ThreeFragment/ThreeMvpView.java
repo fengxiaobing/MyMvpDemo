@@ -18,7 +18,9 @@ package com.bing.mymvpdemo.ui.main.ThreeFragment;
 
 import com.bing.mymvpdemo.ui.base.MvpView;
 
+import java.util.List;
+
 
 public interface ThreeMvpView extends MvpView {
-
+       void showDbData(List<String> strings);
 }

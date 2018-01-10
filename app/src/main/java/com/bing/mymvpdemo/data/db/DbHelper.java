@@ -16,9 +16,10 @@
 package com.bing.mymvpdemo.data.db;
 
 
-
+import java.util.List;
 
 public interface DbHelper {
 
-
+    List<String> getAllUsers();
+   void insertUsers(String name);
 }

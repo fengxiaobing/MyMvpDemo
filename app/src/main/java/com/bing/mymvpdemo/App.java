@@ -2,7 +2,10 @@ package com.bing.mymvpdemo;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
+import com.bing.mymvpdemo.data.db.DatabaseManager;
+import com.bing.mymvpdemo.data.db.DbOpenHelper;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -25,12 +28,16 @@ import okhttp3.OkHttpClient;
 
 public class App extends Application {
     private static Context mContext;
+
+    public  static DatabaseManager mDatabaseManager;
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = (App) getApplicationContext();
         initOkGo();
-
+        mDatabaseManager = DatabaseManager.getInstance(new DbOpenHelper(mContext));
+        SQLiteDatabase database = mDatabaseManager.getWritableDatabase();
+        mDatabaseManager.closeDatabase();
     }
 
     private void initOkGo() {

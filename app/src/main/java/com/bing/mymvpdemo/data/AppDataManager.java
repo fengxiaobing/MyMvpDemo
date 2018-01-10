@@ -56,4 +56,14 @@ public class AppDataManager implements DataManager {
     public void getWhetherApiCall(NetworkCallback<List<Whether>> networkCallback) {
             mApiHelper.getWhetherApiCall(networkCallback);
     }
+
+    @Override
+    public List<String> getAllUsers() {
+        return mDbHelper.getAllUsers();
+    }
+
+    @Override
+    public void insertUsers(String name) {
+        mDbHelper.insertUsers(name);
+    }
 }

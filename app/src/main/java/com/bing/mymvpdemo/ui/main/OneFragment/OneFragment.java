@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +39,11 @@ public class OneFragment extends BaseFragment implements OneMvpView {
     private OneAdapter mOneAdapter;
     @BindView(R.id.one_recycler_view)
     XRecyclerView mRecyclerView;
+    View header;
+
     private int refreshTime = 0;
     private int times = 0;
+
     public static OneFragment newInstance() {
         Bundle args = new Bundle();
         OneFragment fragment = new OneFragment();
@@ -52,10 +56,10 @@ public class OneFragment extends BaseFragment implements OneMvpView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
+        header = inflater.inflate(R.layout.recyclerview_header, container, false);
 
         oneMvpViewOnePresenter = new OnePresenter<>();
         oneMvpViewOnePresenter.onAttach(this);
-
         ButterKnife.bind(this, view);
         return view;
     }
@@ -74,11 +78,10 @@ public class OneFragment extends BaseFragment implements OneMvpView {
         mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
 
         //注释此段代码将会下拉刷新时没有几分钟前提示
-//        mRecyclerView
-//                .getDefaultRefreshHeaderView()
-//                .setRefreshTimeVisible(true);
-//        View header = LayoutInflater.from(getActivity()).inflate(R.layout.recyclerview_header, (ViewGroup)view.findViewById(android.R.id.content),false);
-//        mRecyclerView.addHeaderView(header);
+        mRecyclerView
+                .getDefaultRefreshHeaderView()
+                .setRefreshTimeVisible(true);
+        mRecyclerView.addHeaderView(header);
 
         mRecyclerView.getDefaultFootView().setLoadingHint("自定义加载中提示");
         mRecyclerView.getDefaultFootView().setNoMoreHint("自定义加载完毕提示");
@@ -86,41 +89,32 @@ public class OneFragment extends BaseFragment implements OneMvpView {
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                refreshTime ++;
+                refreshTime++;
                 times = 0;
                 oneMvpViewOnePresenter.onViewPrepared();
-                if(mRecyclerView != null) {
-                    mRecyclerView.refreshComplete();
-                    mRecyclerView.setLoadingMoreEnabled(true);
-                }
+//                if(mRecyclerView != null) {
+//                    mRecyclerView.refreshComplete();
+//                    mRecyclerView.setLoadingMoreEnabled(true);
+//                }
             }
 
             @Override
             public void onLoadMore() {
 
-                if(times < 2){
-
-
-                    new Handler().postDelayed(new Runnable(){
+                if (times < 2) {
+                    new Handler().postDelayed(new Runnable() {
                         public void run() {
                             oneMvpViewOnePresenter.onLoadMoreData();
-                            if(mRecyclerView != null) {
-                                mRecyclerView.loadMoreComplete();
-                            }
+                            mRecyclerView.loadMoreComplete();
                         }
 
                     }, 1000);            //refresh data here
 
-
-
                 } else {
                     oneMvpViewOnePresenter.onLoadMoreData();
-                    if(mRecyclerView != null) {
-                        mRecyclerView.setNoMore(true);
-
-                    }
+                    mRecyclerView.setNoMore(true);
                 }
-                times ++;
+                times++;
             }
         });
 
@@ -139,5 +133,7 @@ public class OneFragment extends BaseFragment implements OneMvpView {
     @Override
     public void updateData(List<Whether> weather) {
         mOneAdapter.addItems(weather);
+        mRecyclerView.refreshComplete();
+        mRecyclerView.setLoadingMoreEnabled(true);
     }
 }
