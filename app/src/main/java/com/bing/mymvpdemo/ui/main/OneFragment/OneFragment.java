@@ -124,7 +124,7 @@ public class OneFragment extends BaseFragment implements OneMvpView {
 
     @Override
     public void onDestroyView() {
-        oneMvpViewOnePresenter.onDetach();
+        oneMvpViewOnePresenter.onDetachCancleNetWork();
 
         super.onDestroyView();
     }

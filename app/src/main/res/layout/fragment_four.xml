@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--<ImageView-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:id="@+id/imageView"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--app:srcCompat="@drawable/cross_anim"-->
+        <!--/> -->
     <ImageView
         android:layout_centerInParent="true"
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:srcCompat="@drawable/cross_anim"
+        android:src="@drawable/cross_anim"
         />
 </RelativeLayout>

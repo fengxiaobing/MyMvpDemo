@@ -52,14 +52,22 @@ public class FourFragment extends BaseFragment implements FourMvpView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fourMvpViewFourMvpPresenter.onDetach();
+        fourMvpViewFourMvpPresenter.onDetachCancleNetWork();
     }
 
     @Override
     public void showAnimal() {
-        Drawable drawable = imageView.getDrawable();
-        if (drawable instanceof Animatable) {
-            ((Animatable) drawable).start();
-        }
+        //开启动画
+//        Drawable drawable = imageView.getDrawable();
+//        if (drawable instanceof Animatable) {
+//            ((Animatable) drawable).start();
+//        }
+
+        String imageUrl = "http://img2.imgtn.bdimg.com/it/u=620183094,2744897300&fm=27&gp=0.jpg";
+        //网络加载图片
+        Glide.with(getActivity())
+                .load(imageUrl)
+                .into(imageView);
+
     }
 }

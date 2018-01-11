@@ -40,7 +40,13 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     @Override
     public void onDetach() {
         mMvpView = null;
-        getDataManager().cancleNetwork();
+
+    }
+
+    @Override
+    public void onDetachCancleNetWork() {
+        mMvpView = null;
+        mDataManager.cancleNetwork();
     }
 
     @Override
