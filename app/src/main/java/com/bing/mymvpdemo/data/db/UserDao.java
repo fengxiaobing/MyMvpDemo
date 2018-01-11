@@ -27,6 +27,7 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Sex = new Property(1, String.class, "sex", false, "SEX");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
+        public final static Property Hobby = new Property(3, String.class, "hobby", false, "HOBBY");
     };
 
 
@@ -44,7 +45,8 @@ public class UserDao extends AbstractDao<User, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"SEX\" TEXT," + // 1: sex
-                "\"NAME\" TEXT);"); // 2: name
+                "\"NAME\" TEXT," + // 2: name
+                "\"HOBBY\" TEXT);"); // 3: hobby
     }
 
     /** Drops the underlying database table. */
@@ -71,6 +73,11 @@ public class UserDao extends AbstractDao<User, Long> {
         if (name != null) {
             stmt.bindString(3, name);
         }
+ 
+        String hobby = entity.getHobby();
+        if (hobby != null) {
+            stmt.bindString(4, hobby);
+        }
     }
 
     @Override
@@ -91,6 +98,11 @@ public class UserDao extends AbstractDao<User, Long> {
         if (name != null) {
             stmt.bindString(3, name);
         }
+ 
+        String hobby = entity.getHobby();
+        if (hobby != null) {
+            stmt.bindString(4, hobby);
+        }
     }
 
     @Override
@@ -103,7 +115,8 @@ public class UserDao extends AbstractDao<User, Long> {
         User entity = new User( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // sex
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // name
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // hobby
         );
         return entity;
     }
@@ -113,6 +126,7 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setSex(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setHobby(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override

@@ -69,7 +69,7 @@ public class ThreeFragment extends BaseFragment implements ThreeMvpView {
     public void showDbData(List<User> userList) {
         StringBuilder names = new StringBuilder();
         for (int i = 0; i < userList.size(); i++) {
-            names.append(userList.get(i).getName()).append("/n");
+            names.append(userList.get(i).getName()).append("\n");
         }
         textView.setText(names.toString());
     }

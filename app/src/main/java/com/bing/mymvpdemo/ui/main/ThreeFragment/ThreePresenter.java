@@ -20,8 +20,10 @@ public class ThreePresenter<V extends ThreeMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewPrepared() {
-        User user = new User();
-        user.setName("冰冰");
+        User user = new User.Builder()
+                .setSex("男")
+                .setName("小明")
+                .builder();
         getDataManager().insertUsers(user);
     }
 
