@@ -2,6 +2,7 @@
 
 package com.bing.mymvpdemo.ui.main.ThreeFragment;
 
+import com.bing.mymvpdemo.data.db.entity.User;
 import com.bing.mymvpdemo.ui.base.BasePresenter;
 
 import java.util.List;
@@ -19,12 +20,13 @@ public class ThreePresenter<V extends ThreeMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewPrepared() {
-        getDataManager().insertUsers("哈哈哈哈");
+        User user = new User((long)1,"女","小里");
+        getDataManager().insertUsers(user);
     }
 
     @Override
     public void QueryData() {
-        List<String> stringList = getDataManager().getAllUsers();
+        List<User> stringList = getDataManager().getAllUsers();
         getMvpView().showDbData(stringList);
     }
 

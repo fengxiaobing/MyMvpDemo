@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bing.mymvpdemo.R;
+import com.bing.mymvpdemo.data.db.entity.User;
 import com.bing.mymvpdemo.ui.base.BaseFragment;
 
 import java.util.List;
@@ -65,7 +66,11 @@ public class ThreeFragment extends BaseFragment implements ThreeMvpView {
 
 
     @Override
-    public void showDbData(List<String> strings) {
-        Log.e("TAG","数据"+strings);
+    public void showDbData(List<User> userList) {
+        StringBuilder names = new StringBuilder();
+        for (int i = 0; i < userList.size(); i++) {
+            names.append(userList.get(i).getName()).append("/n");
+        }
+        textView.setText(names.toString());
     }
 }

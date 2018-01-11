@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -17,7 +18,11 @@ android {
         }
     }
 }
-
+greendao {
+    schemaVersion 1
+    daoPackage 'com.bing.mymvpdemo.data.db'
+    targetGenDir 'src/main/java'
+}
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
@@ -41,4 +46,7 @@ dependencies {
     implementation "com.readystatesoftware.chuck:library:$rootProject.chuckVersion"
     //recyclerview
     compile "com.jcodecraeer:xrecyclerview:$rootProject.xrecyclerviewVersion"
+    //greendao
+    implementation 'org.greenrobot:greendao:3.0.1'
+    implementation 'org.greenrobot:greendao-generator:3.0.0'
 }

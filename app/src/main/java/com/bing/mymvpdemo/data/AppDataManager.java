@@ -2,6 +2,7 @@
 package com.bing.mymvpdemo.data;
 
 import com.bing.mymvpdemo.data.db.DbHelper;
+import com.bing.mymvpdemo.data.db.entity.User;
 import com.bing.mymvpdemo.data.network.ApiHelper;
 import com.bing.mymvpdemo.data.network.callback.NetworkCallback;
 import com.bing.mymvpdemo.data.network.model.Whether;
@@ -62,13 +63,14 @@ public class AppDataManager implements DataManager {
         mApiHelper.cancleNetwork();
     }
 
+
     @Override
-    public List<String> getAllUsers() {
+    public List<User> getAllUsers() {
         return mDbHelper.getAllUsers();
     }
 
     @Override
-    public void insertUsers(String name) {
-        mDbHelper.insertUsers(name);
+    public void insertUsers(User user) {
+        mDbHelper.insertUsers(user);
     }
 }

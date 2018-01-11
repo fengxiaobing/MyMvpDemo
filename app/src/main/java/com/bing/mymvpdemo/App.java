@@ -3,15 +3,13 @@ package com.bing.mymvpdemo;
 import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
-import com.bing.mymvpdemo.data.db.DatabaseManager;
-import com.bing.mymvpdemo.data.db.DbOpenHelper;
+import com.bing.mymvpdemo.data.db.DaoMaster;
+import com.bing.mymvpdemo.data.db.DaoSession;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
-import com.lzy.okgo.cookie.CookieJarImpl;
-import com.lzy.okgo.cookie.store.DBCookieStore;
-import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
@@ -30,17 +28,40 @@ import okhttp3.OkHttpClient;
 public class App extends Application {
     private static Context mContext;
 
-    public  static DatabaseManager mDatabaseManager;
+    private DaoMaster.DevOpenHelper mHelper;
+    private SQLiteDatabase db;
+    private DaoMaster mDaoMaster;
+    private DaoSession mDaoSession;
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = (App) getApplicationContext();
         initOkGo();
-        mDatabaseManager = DatabaseManager.getInstance(new DbOpenHelper(mContext));
-        SQLiteDatabase database = mDatabaseManager.getWritableDatabase();
-        mDatabaseManager.closeDatabase();
+        setDatabase();
+    }
+    private void setDatabase() {
+        // 通过 DaoMaster 的内部类 DevOpenHelper，你可以得到一个便利的 SQLiteOpenHelper 对象。
+        // 可能你已经注意到了，你并不需要去编写「CREATE TABLE」这样的 SQL 语句，因为 greenDAO 已经帮你做了。
+        // 注意：默认的 DaoMaster.DevOpenHelper 会在数据库升级时，删除所有的表，意味着这将导致数据的丢失。
+        // 所以，在正式的项目中，你还应该做一层封装，来实现数据库的安全升级。
+        mHelper = new DaoMaster.DevOpenHelper(this, "notes-db", null);
+        db = mHelper.getWritableDatabase();
+        // 注意：该数据库连接属于 DaoMaster，所以多个 Session 指的是相同的数据库连接。
+        mDaoMaster = new DaoMaster(db);
+        mDaoSession = mDaoMaster.newSession();
+        Log.e("TAG","");
+    }
+    public DaoSession getDaoSession() {
+        Log.e("TAG","");
+        return mDaoSession;
+    }
+    public SQLiteDatabase getDb() {
+        return db;
     }
 
+    /**
+     * 初始化网络
+     */
     private void initOkGo() {
         HttpHeaders headers = new HttpHeaders();
 //        headers.put("commonHeaderKey1", "commonHeaderValue1");    //header不支持中文，不允许有特殊字符

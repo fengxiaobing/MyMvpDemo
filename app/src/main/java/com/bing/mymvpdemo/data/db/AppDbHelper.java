@@ -15,50 +15,29 @@
 
 package com.bing.mymvpdemo.data.db;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.bing.mymvpdemo.App;
-import com.bing.mymvpdemo.data.prefs.PreferencesHelper;
-import com.bing.mymvpdemo.utils.SharedPreferencesHelper;
+import com.bing.mymvpdemo.data.db.entity.User;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.util.List;
 
-import static com.bing.mymvpdemo.data.db.DbOpenHelper.USER_TABLE_NAME;
-
-
 public class AppDbHelper implements DbHelper {
-    private static DatabaseManager mDatabaseManager = App.mDatabaseManager;
 
     @Override
-    public List<String> getAllUsers() {
-        List<String> stringList = new ArrayList<>();
-        SQLiteDatabase database = mDatabaseManager.getReadableDatabase();
-        Cursor cursor = database.query(DbOpenHelper.USER_TABLE_NAME, null, null, null, null, null, null);
-        if (cursor.getColumnCount() > 0 && cursor.getCount() > 0) {
-            while (cursor.moveToNext()) {
-                String name = cursor.getString(cursor.getColumnIndex("name"));
-                stringList.add(name);
-            }
-        }
-        cursor.close();
-        mDatabaseManager.closeDatabase();
-        return stringList;
+    public List<User> getAllUsers() {
+        DaoSession session = App.getContext().getDaoSession();
+        UserDao mUserDao =  session.getUserDao();
+        QueryBuilder<User> qb = mUserDao.queryBuilder();
+        List<User> list = qb.list();
+        return list;
     }
 
     @Override
-    public void insertUsers(String name) {
-        SQLiteDatabase database = mDatabaseManager.getWritableDatabase();
-//生成ContentValues对象 //key:列名，value:想插入的值
-        ContentValues cv = new ContentValues();
-//往ContentValues对象存放数据，键-值对模式
-        cv.put("name", name);
-//调用insert方法，将数据插入数据库
-        database.insert(DbOpenHelper.USER_TABLE_NAME, null, cv);
-//关闭数据库
-        mDatabaseManager.closeDatabase();
+    public void insertUsers(User user) {
+        DaoSession session = App.getContext().getDaoSession();
+        UserDao mUserDao =  session.getUserDao();
+        mUserDao.insertOrReplace(user);
     }
 }
