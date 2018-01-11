@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,7 +23,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
-    MainPresenter<MainMvpView> mainMvpViewMainPresenter;
+    MainMvpPresenter<MainMvpView> mainMvpViewMainPresenter;
     @BindView(R.id.viewpager)
     MyViewPager viewpager;
     @BindView(R.id.btn_notice)
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     RadioGroup radiogroup;
     @BindView(R.id.title)
     TextView title;
+    private long mExitTime;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -54,6 +56,24 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         init();
     }
 
+    // 监听手机上的BACK键
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                // 判断两次点击的时间间隔（默认设置为2秒）
+                if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                   showMessage("是否退出应用");
+                    mExitTime = System.currentTimeMillis();
+                } else {
+                    finish();
+                    System.exit(0);
+                    super.onBackPressed();
+                }
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
     private void init() {
         FragmentManager fm = getSupportFragmentManager();
         MainPagerAdapter mPagerAdapter = new MainPagerAdapter(fm);
