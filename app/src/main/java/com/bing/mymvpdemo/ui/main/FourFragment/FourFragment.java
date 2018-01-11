@@ -1,5 +1,7 @@
 package com.bing.mymvpdemo.ui.main.FourFragment;
 
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -51,5 +53,13 @@ public class FourFragment extends BaseFragment implements FourMvpView {
     public void onDestroyView() {
         super.onDestroyView();
         fourMvpViewFourMvpPresenter.onDetach();
+    }
+
+    @Override
+    public void showAnimal() {
+        Drawable drawable = imageView.getDrawable();
+        if (drawable instanceof Animatable) {
+            ((Animatable) drawable).start();
+        }
     }
 }

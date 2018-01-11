@@ -1,0 +1,16 @@
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+     android:ordering="sequentially">
+
+    <!-- first we need to immediately reset state -->
+    <objectAnimator
+    android:propertyName="trimPathEnd"
+    android:valueFrom="0"
+    android:valueTo="1"
+    android:duration="5000"
+    android:repeatCount="infinite"
+    android:valueType="floatType"
+    android:interpolator="@android:interpolator/linear">
+    </objectAnimator>
+
+
+</set>

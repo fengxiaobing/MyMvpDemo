@@ -1,0 +1,12 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/square">
+
+    <target
+        android:name="pathgroup"
+        android:animation="@animator/anim_square"/>
+    <target
+        android:name="path"
+        android:animation="@animator/anim_cross_line"/>
+
+</animated-vector>

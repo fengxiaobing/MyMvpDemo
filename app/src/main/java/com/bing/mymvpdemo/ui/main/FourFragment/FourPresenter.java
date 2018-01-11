@@ -21,6 +21,7 @@ public class FourPresenter<V extends FourMvpView> extends BasePresenter<V>
 
     @Override
     public void onViewPrepared() {
+        getMvpView().showAnimal();
         getMvpView().showLoading();
         getDataManager().getWhetherApiCall(new NetworkCallback<List<Whether>>() {
             @Override
