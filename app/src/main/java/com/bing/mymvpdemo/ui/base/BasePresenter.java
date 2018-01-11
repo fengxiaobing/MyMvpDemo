@@ -9,6 +9,7 @@ import com.bing.mymvpdemo.data.DataManager;
 import com.bing.mymvpdemo.data.db.AppDbHelper;
 import com.bing.mymvpdemo.data.network.AppApiHelper;
 import com.bing.mymvpdemo.data.prefs.AppPreferencesHelper;
+import com.lzy.okgo.OkGo;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -39,6 +40,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     @Override
     public void onDetach() {
         mMvpView = null;
+        getDataManager().cancleNetwork();
     }
 
     @Override
@@ -46,6 +48,8 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         if(error.contains("test")){
             getDataManager().setCurrentUserLoggedIn(0);
             getMvpView().openActivityOnTokenExpire();
+        }else {
+            getMvpView().onError(error);
         }
 
     }

@@ -45,9 +45,13 @@ public class AppApiHelper implements ApiHelper {
                         super.onError(response);
                         String err = response.getException().getLocalizedMessage();
                         networkCallback.onFail(err);
-
                     }
                 });
 
+    }
+
+    @Override
+    public void cancleNetwork() {
+        OkGo.getInstance().cancelTag(this);
     }
 }

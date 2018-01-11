@@ -31,5 +31,5 @@ ext {
     okgoVersion = '3.0.4'
     gsonVersion = '2.8.0'
     chuckVersion = '1.0.4'
-    xrecyclerviewVersion = '1.5.7'
+    xrecyclerviewVersion = '1.5.8'
 }

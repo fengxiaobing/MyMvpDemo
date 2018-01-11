@@ -32,6 +32,7 @@ public class OnePresenter<V extends OneMvpView> extends BasePresenter<V>
             @Override
             public void onFail(String err) {
                 getMvpView().hideLoading();
+                getMvpView().updateData(null);
                 handleApiError(err);
             }
         });

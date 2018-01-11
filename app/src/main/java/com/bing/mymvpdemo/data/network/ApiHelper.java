@@ -27,5 +27,5 @@ import java.util.List;
 
 public interface ApiHelper {
     void getWhetherApiCall(NetworkCallback<List<Whether>> networkCallback);
-
+    void cancleNetwork();
 }

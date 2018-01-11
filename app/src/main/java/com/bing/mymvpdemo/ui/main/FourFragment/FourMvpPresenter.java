@@ -11,5 +11,5 @@ import com.bing.mymvpdemo.ui.base.MvpPresenter;
 
 
 public interface FourMvpPresenter<V extends FourMvpView> extends MvpPresenter<V> {
-
+    void onViewPrepared();
 }

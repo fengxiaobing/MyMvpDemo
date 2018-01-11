@@ -78,9 +78,9 @@ public class OneFragment extends BaseFragment implements OneMvpView {
         mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
 
         //注释此段代码将会下拉刷新时没有几分钟前提示
-        mRecyclerView
-                .getDefaultRefreshHeaderView()
-                .setRefreshTimeVisible(true);
+//        mRecyclerView
+//                .getDefaultRefreshHeaderView()
+//                .setRefreshTimeVisible(false);
         mRecyclerView.addHeaderView(header);
 
         mRecyclerView.getDefaultFootView().setLoadingHint("自定义加载中提示");
@@ -111,7 +111,6 @@ public class OneFragment extends BaseFragment implements OneMvpView {
                     }, 1000);            //refresh data here
 
                 } else {
-                    oneMvpViewOnePresenter.onLoadMoreData();
                     mRecyclerView.setNoMore(true);
                 }
                 times++;
@@ -126,13 +125,16 @@ public class OneFragment extends BaseFragment implements OneMvpView {
     @Override
     public void onDestroyView() {
         oneMvpViewOnePresenter.onDetach();
+
         super.onDestroyView();
     }
 
 
     @Override
     public void updateData(List<Whether> weather) {
-        mOneAdapter.addItems(weather);
+        if(weather != null){
+            mOneAdapter.addItems(weather);
+        }
         mRecyclerView.refreshComplete();
         mRecyclerView.setLoadingMoreEnabled(true);
     }

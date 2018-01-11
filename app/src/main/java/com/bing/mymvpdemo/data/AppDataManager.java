@@ -58,6 +58,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void cancleNetwork() {
+        mApiHelper.cancleNetwork();
+    }
+
+    @Override
     public List<String> getAllUsers() {
         return mDbHelper.getAllUsers();
     }
