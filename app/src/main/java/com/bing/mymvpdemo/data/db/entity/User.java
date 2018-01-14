@@ -15,6 +15,7 @@ public class User {
     private String sex;
     private String name;
     private String hobby;
+    private String age;
     public String getName() {
         return this.name;
     }
@@ -39,12 +40,19 @@ public class User {
     public void setHobby(String hobby) {
         this.hobby = hobby;
     }
-    @Generated(hash = 528670471)
-    public User(Long id, String sex, String name, String hobby) {
+    public String getAge() {
+        return this.age;
+    }
+    public void setAge(String age) {
+        this.age = age;
+    }
+    @Generated(hash = 1541234349)
+    public User(Long id, String sex, String name, String hobby, String age) {
         this.id = id;
         this.sex = sex;
         this.name = name;
         this.hobby = hobby;
+        this.age = age;
     }
     public User() {
         this.id = null;
@@ -54,6 +62,7 @@ public class User {
         this.sex = builder.sex;
         this.name = builder.name;
         this.hobby = builder.hobby;
+        this.age = builder.age;
     }
 
     public static class Builder{
@@ -61,6 +70,7 @@ public class User {
         private String sex;
         private String name;
         private String hobby;
+        private String age;
         public Builder() {
         }
 
@@ -75,6 +85,10 @@ public class User {
         }
         public Builder setHobby(String hobby) {
             this.hobby = hobby;
+            return this;
+        }
+        public Builder setAge(String age) {
+            this.age = age;
             return this;
         }
         public User builder(){

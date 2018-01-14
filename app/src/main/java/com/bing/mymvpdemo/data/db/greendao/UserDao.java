@@ -1,4 +1,4 @@
-package com.bing.mymvpdemo.data.db;
+package com.bing.mymvpdemo.data.db.greendao;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
@@ -28,6 +28,7 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Sex = new Property(1, String.class, "sex", false, "SEX");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
         public final static Property Hobby = new Property(3, String.class, "hobby", false, "HOBBY");
+        public final static Property Age = new Property(4, String.class, "age", false, "AGE");
     };
 
 
@@ -46,7 +47,8 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"SEX\" TEXT," + // 1: sex
                 "\"NAME\" TEXT," + // 2: name
-                "\"HOBBY\" TEXT);"); // 3: hobby
+                "\"HOBBY\" TEXT," + // 3: hobby
+                "\"AGE\" TEXT);"); // 4: age
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +80,11 @@ public class UserDao extends AbstractDao<User, Long> {
         if (hobby != null) {
             stmt.bindString(4, hobby);
         }
+ 
+        String age = entity.getAge();
+        if (age != null) {
+            stmt.bindString(5, age);
+        }
     }
 
     @Override
@@ -103,6 +110,11 @@ public class UserDao extends AbstractDao<User, Long> {
         if (hobby != null) {
             stmt.bindString(4, hobby);
         }
+ 
+        String age = entity.getAge();
+        if (age != null) {
+            stmt.bindString(5, age);
+        }
     }
 
     @Override
@@ -116,7 +128,8 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // sex
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // hobby
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // hobby
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // age
         );
         return entity;
     }
@@ -127,6 +140,7 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setSex(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setHobby(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setAge(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

@@ -20,7 +20,7 @@ android {
 }
 greendao {
     schemaVersion 1
-    daoPackage 'com.bing.mymvpdemo.data.db'
+    daoPackage 'com.bing.mymvpdemo.data.db.greendao'
     targetGenDir 'src/main/java'
 }
 dependencies {

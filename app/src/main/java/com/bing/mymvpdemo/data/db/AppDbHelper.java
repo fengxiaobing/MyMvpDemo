@@ -18,6 +18,8 @@ package com.bing.mymvpdemo.data.db;
 
 import com.bing.mymvpdemo.App;
 import com.bing.mymvpdemo.data.db.entity.User;
+import com.bing.mymvpdemo.data.db.greendao.DaoSession;
+import com.bing.mymvpdemo.data.db.greendao.UserDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 

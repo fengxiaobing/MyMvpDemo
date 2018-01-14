@@ -1,4 +1,4 @@
-package com.bing.mymvpdemo.data.db;
+package com.bing.mymvpdemo.data.db.greendao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,11 +22,15 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
         UserDao.createTable(db, ifNotExists);
+        PersonDao.createTable(db, ifNotExists);
+        testDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         UserDao.dropTable(db, ifExists);
+        PersonDao.dropTable(db, ifExists);
+        testDao.dropTable(db, ifExists);
     }
 
     /**
@@ -46,6 +50,8 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(UserDao.class);
+        registerDaoClass(PersonDao.class);
+        registerDaoClass(testDao.class);
     }
 
     public DaoSession newSession() {
