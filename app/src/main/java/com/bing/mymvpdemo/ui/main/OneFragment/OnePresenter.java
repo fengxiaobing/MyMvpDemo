@@ -45,13 +45,13 @@ public class OnePresenter<V extends OneMvpView> extends BasePresenter<V>
             @Override
             public void onSuccess(List<Whether> success) {
                 getMvpView().hideLoading();
-                getMvpView().updateData(success);
+                getMvpView().refreshData(success);
             }
 
             @Override
             public void onFail(String err) {
                 getMvpView().hideLoading();
-                getMvpView().updateData(null);
+                getMvpView().refreshData(null);
                 handleApiError(err);
             }
         });

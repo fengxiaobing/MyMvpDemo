@@ -129,6 +129,15 @@ public class OneFragment extends BaseFragment implements OneMvpView {
     }
 
     @Override
+    public void refreshData(List<Whether> weather) {
+        if (weather != null) {
+            mOneAdapter.refreshItems(weather);
+        }
+        mRecyclerView.refreshComplete();
+        mRecyclerView.setLoadingMoreEnabled(true);
+    }
+
+    @Override
     public void initPagerData(List<String> urls) {
         this.urls = urls;
         pagerAdapter = new MyPagerAdapter(getActivity(), urls);

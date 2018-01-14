@@ -52,6 +52,11 @@ public class OneAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         weatherBeanList.addAll(weather);
         notifyDataSetChanged();
     }
+    public void refreshItems(List<Whether> weather) {
+        weatherBeanList.clear();
+        weatherBeanList.addAll(weather);
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends BaseViewHolder {
 

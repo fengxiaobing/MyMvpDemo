@@ -28,5 +28,6 @@ public interface OneMvpView extends MvpView {
      * @param weather
      */
     void updateData(List<Whether> weather);
+    void refreshData(List<Whether> weather);
     void initPagerData(List<String> url);
 }
