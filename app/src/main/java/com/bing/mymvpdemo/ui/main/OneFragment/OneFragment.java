@@ -54,17 +54,17 @@ public class OneFragment extends BaseFragment implements OneMvpView {
     private Timer timer;
     private TimerTask timerTask;
     //当前索引位置以及上一个索引位置
-    private int index = 0,preIndex = 0;
+    private int index = 0, preIndex = 0;
     //是否需要轮播标志
     private boolean isContinue = true;
     private List<String> urls;
 
     private ScheduledExecutorService scheduledExecutorService;
 
-    Handler mHandler  = new Handler(new Handler.Callback() {
+    Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
-            switch (message.what){
+            switch (message.what) {
                 case 1:
                     index++;
                     viewpager.setCurrentItem(index);
@@ -73,12 +73,14 @@ public class OneFragment extends BaseFragment implements OneMvpView {
             return false;
         }
     });
+
     public static OneFragment newInstance() {
         Bundle args = new Bundle();
         OneFragment fragment = new OneFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -116,6 +118,7 @@ public class OneFragment extends BaseFragment implements OneMvpView {
         viewpager.setOnPageChangeListener(onPageChangeListener);
         oneMvpViewOnePresenter.onViewPrepared();
     }
+
     @Override
     public void updateData(List<Whether> weather) {
         if (weather != null) {
@@ -128,37 +131,33 @@ public class OneFragment extends BaseFragment implements OneMvpView {
     @Override
     public void initPagerData(List<String> urls) {
         this.urls = urls;
-//        if(pagerAdapter != null){
-//            pagerAdapter.notifyDataSetChanged();
-//        }else {
-            pagerAdapter = new MyPagerAdapter(getActivity(), urls);
-            viewpager.setAdapter(pagerAdapter);
-//        }
+        pagerAdapter = new MyPagerAdapter(getActivity(), urls);
+        viewpager.setAdapter(pagerAdapter);
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleWithFixedDelay(
                 new ViewPageTask(),
                 2,
                 2,
                 TimeUnit.SECONDS);
-
         initRadioButton(urls.size());
 
-
     }
+
     @Override
     public void onDestroyView() {
         oneMvpViewOnePresenter.onDetachCancleNetWork();
-        if(scheduledExecutorService != null){
+        if (scheduledExecutorService != null) {
             scheduledExecutorService.shutdown();
             scheduledExecutorService = null;
         }
         super.onDestroyView();
     }
+
     XRecyclerView.LoadingListener loadingListener = new XRecyclerView.LoadingListener() {
         @Override
         public void onRefresh() {
             times = 0;
-            if(scheduledExecutorService != null){
+            if (scheduledExecutorService != null) {
                 index = 0;
                 preIndex = 0;
                 scheduledExecutorService.shutdown();
@@ -183,7 +182,8 @@ public class OneFragment extends BaseFragment implements OneMvpView {
             times++;
         }
     };
-    class ViewPageTask implements Runnable{
+
+    class ViewPageTask implements Runnable {
 
         @Override
         public void run() {
@@ -193,13 +193,14 @@ public class OneFragment extends BaseFragment implements OneMvpView {
             }
         }
     }
+
     /**
      * 根据当前触摸事件判断是否要轮播
      */
-    View.OnTouchListener onTouchListener  = new View.OnTouchListener() {
+    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()){
+            switch (event.getAction()) {
                 //手指按下和划动的时候停止图片的轮播
                 case MotionEvent.ACTION_DOWN:
                 case MotionEvent.ACTION_MOVE:
@@ -212,17 +213,19 @@ public class OneFragment extends BaseFragment implements OneMvpView {
         }
     };
     /**
-     *根据当前选中的页面设置按钮的选中
+     * 根据当前选中的页面设置按钮的选中
      */
     ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         }
+
         @Override
         public void onPageSelected(int position) {
             index = position;//当前位置赋值给索引
-            setCurrentDot(index%urls.size());
+            setCurrentDot(index % urls.size());
         }
+
         @Override
         public void onPageScrollStateChanged(int state) {
         }
@@ -230,29 +233,32 @@ public class OneFragment extends BaseFragment implements OneMvpView {
 
     /**
      * 设置对应位置按钮的状态
+     *
      * @param i 当前位置
      */
     private void setCurrentDot(int i) {
-        if(group.getChildAt(i)!=null){
+        if (group.getChildAt(i) != null) {
             group.getChildAt(i).setEnabled(false);//当前按钮选中
         }
-        if(group.getChildAt(preIndex)!=null){
+        if (group.getChildAt(preIndex) != null) {
             group.getChildAt(preIndex).setEnabled(true);//上一个取消选中
             preIndex = i;//当前位置变为上一个，继续下次轮播
         }
     }
+
     /**
      * 根据图片个数初始化按钮
+     *
      * @param length
      */
     private void initRadioButton(int length) {
-        if(length>0){
+        if (length > 0) {
             group.removeAllViews();
         }
-        for(int i = 0;i<length;i++){
+        for (int i = 0; i < length; i++) {
             ImageView imageview = new ImageView(getActivity());
             imageview.setImageResource(R.drawable.rg_selector);//设置背景选择器
-            imageview.setPadding(20,0,0,0);//设置每个按钮之间的间距
+            imageview.setPadding(20, 0, 0, 0);//设置每个按钮之间的间距
             //将按钮依次添加到RadioGroup中
             group.addView(imageview, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             //默认选中第一个按钮，因为默认显示第一张图片
