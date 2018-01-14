@@ -15,6 +15,7 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.readystatesoftware.chuck.ChuckInterceptor;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -36,6 +37,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+       // 内存泄漏
+        LeakCanary.install(this);
         mContext = (App) getApplicationContext();
         initOkGo();
         setDatabase();

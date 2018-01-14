@@ -49,4 +49,6 @@ dependencies {
     //greendao
     implementation 'org.greenrobot:greendao:3.0.1'
     implementation 'org.greenrobot:greendao-generator:3.0.0'
+    //leakcanary
+    compile 'com.squareup.leakcanary:leakcanary-android:1.5'
 }
